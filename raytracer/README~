@@ -1,0 +1,75 @@
+#####################################################################
+#																	#
+#	Thiago R. C. de Lima											#
+#	V00810885														#
+#																	#
+#	CSC305 - Assignment 4											#
+#																	#
+#####################################################################
+
+# Ray Tracer
+	This package contains my implementation of Ray Tracing. I decided
+ to code it in Python and for that reason there is no bin/ directory.
+ The executable is the script "main.py" itself.
+	The script receives from the standard input the information to
+ build the scene. It first reads the amount of spheres to be placed,
+ then, for each sphere, it reads the position (x,y,z), color (r,g,b)
+ radius and material (0 or 1). The sphere will reflect the light if
+ the material is set to 0 and will act as a translucid ball if 1. The
+ next information is the number of light sources. Then, for each one,
+ reads the position, color and intensity.
+	After setting up the scene objects, the script starts the Ray
+ Tracing algorithm by opening a file in which the image will be saved.
+ Then, for each pixel in the image, it creates a ray and retrieves its
+ color by calling the function "Scene.trace()". This function is the
+ core of the algorithm. The number of rays can be defined by the user
+ by passing it as a parameter for the program (default is 3).
+	The function checks if the ray hits an object and, if so, which
+ object was the closest. That's the one that will be shown, since the
+ others are hidden behind. It then calculates the color based on the
+ object. The calculus will depend if it reflects or refracts the light,
+ whether it has shadow or direct light.
+
+# Files
+ README				-	This file.
+
+ src/
+	main.py			-	Contains the main part of the program, including the
+						Scene class and the tracing modules.
+
+	 objects.py		-	Has the class definitions for the scene objects and
+						also the Ray class which has the function that checks
+						whether a ray intersects a sphere or plane.
+
+	 image.py		-	Contains the modules to deal with the .ppm file type.
+
+ in/
+	scene{1..4}		-	Input files containing scene information
+
+ img/
+	scene{1..4}.ppm	-	The image files generated from the included input files.
+
+# Usage
+ You can either explicitly call python or execute the script (if you use bash)
+	$ python main.py
+ Or
+	$ chmod +x main.py
+	$ ./main.py
+ If you don't want to be prompted over and over, you can redirect a file:
+	$ ./main.py	< scene1
+ You can also define the maximum number of rays per pixel (default is 3):
+	$ ./main.py 5 < scene1
+
+# Checklist
+  Done:
+		- Comments and README file.
+		- Write image to disc.
+		- Generate ray pixel-wise and intersect with floor (plane)
+		- Intersect rays with spheres.
+		- Calculate Diffuse color.
+		- Calculate if surface is in shadow.
+		- Arbitrary recursion depth.
+		- Arbitrary number of rays.
+		- Phong Illumination, shadowing and reflections.
+		- Add Refractions.
+
